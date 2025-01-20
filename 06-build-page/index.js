@@ -5,10 +5,14 @@ const projectPath = path.join(__dirname, 'project-dist');
 const bundlePath = path.join(__dirname, 'project-dist', 'bundle.css');
 
 async function buildPage(){
-    const template = await fs.promises.readFile(path.join(__dirname,'template.html'),'utf-8');
+    
     
     const components = await getComponents();
-      await console.log(components)
+    const template = await fs.promises.readFile(path.join(__dirname,'template.html'),'utf-8');
+  //  console.log(template);
+     // await console.log(components)
+    const htmlPage =  replace(template,components);
+    console.log(htmlPage);
 }
 
 buildPage()
@@ -22,4 +26,12 @@ async function getComponents(){
         }
     }
     return components;
+}
+ function replace(template,components){
+  let result = template;
+  for(const key in components){
+    const regExp = new RegExp(`{{${key}}}`,'g');
+    result = result.replace(regExp,components[key]);
+  }
+  return result;
 }
