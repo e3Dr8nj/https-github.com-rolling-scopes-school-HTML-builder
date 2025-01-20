@@ -1,19 +1,25 @@
 const fs = require('fs');
 const path= require('path');
+const mergeStyles = require('../05-merge-styles/index.js');
+const copyDirectory = require('../04-copy-directory');
+
 const dirPathStyles = path.join(__dirname,'styles');
 const projectPath = path.join(__dirname, 'project-dist');
 const bundlePath = path.join(__dirname, 'project-dist', 'bundle.css');
+const dirPathA = path.join(__dirname,'assets');
+const dirPathCopyA = path.join(projectPath,'assets');
 
 async function buildPage(){
     
     await fs.promises.mkdir(projectPath,{recursive:true});
     const components = await getComponents();
     const template = await fs.promises.readFile(path.join(__dirname,'template.html'),'utf-8');
-  //  console.log(template);
-     // await console.log(components)
     const htmlPage =  replace(template,components);
     await fs.promises.writeFile(path.join(projectPath,"index.html"),htmlPage,'utf-8');
-   // console.log(htmlPage);
+  
+     await mergeStyles(dirPathStyles,bundlePath);
+     await copyDirectory(dirPathA,dirPathCopyA);
+
 }
 
 buildPage()
@@ -36,3 +42,4 @@ async function getComponents(){
   }
   return result;
 }
+
