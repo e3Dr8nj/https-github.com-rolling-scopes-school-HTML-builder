@@ -6,13 +6,14 @@ const bundlePath = path.join(__dirname, 'project-dist', 'bundle.css');
 
 async function buildPage(){
     
-    
+    await fs.promises.mkdir(projectPath,{recursive:true});
     const components = await getComponents();
     const template = await fs.promises.readFile(path.join(__dirname,'template.html'),'utf-8');
   //  console.log(template);
      // await console.log(components)
     const htmlPage =  replace(template,components);
-    console.log(htmlPage);
+    await fs.promises.writeFile(path.join(projectPath,"index.html"),htmlPage,'utf-8');
+   // console.log(htmlPage);
 }
 
 buildPage()
