@@ -23,29 +23,26 @@ const fs = require('fs');
 const path= require('path');
 const dirPath = path.join(__dirname,'secret-folder');
 async function readDir(){
- let files = await fs.promises.readdir(dirPath,{withFileTypes: true},(err,files)=>{
-    if(err){console.error('error due reading dir');}
+  try{
+    let files = await fs.promises.readdir(dirPath,{withFileTypes: true},(err,files)=>{
     return files;
   })
    for(const file of files){
      const filePath = path.join(dirPath,file.name);
-     /*
-     fs.stat(filePath,(err,stats)=>{
-        if(err){console.error('error due reading info about files',err.message);return;}
-       if(stats.isFile()){
-         const extName = path.extname(file.name);
-         const size = stats.size;
-         process.stdout.write(`${file.name}-${extName}-${(size/1024).toFixed(3)}kb \n`)
-       }
-     })
-       */
       if(file.isFile()){
-        const stats = await fs.promises.stat(filePath,(err,stats)=>{return stats});
+        const stats = await fs.promises.stat(filePath,(err,stats)=>{
+            return stats;
+        });
+       
         const extName = path.extname(file.name);
         const size = stats.size;
         process.stdout.write(`${file.name}-${extName}-${(size/1024).toFixed(3)}kb \n`)
       
-    };
-   };//--
+     };
+   };
+  }catch(err){
+    console.error('error occurs due reading dir ',err.message )
+  }
+ 
 }
 readDir();
