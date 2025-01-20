@@ -5,7 +5,8 @@ fs.writeFile(filePath,'','utf8',(err)=>{
     if(err){ 
      console.error("error creating file",err.message);
     }else{
-     console.log("file created")
+     console.log("file created");
+     appendFile();
     }
    })
  function appendFile(){  
@@ -13,14 +14,14 @@ fs.writeFile(filePath,'','utf8',(err)=>{
    process.stdin.on("data",(data)=>{
   fs.appendFile(filePath,data,'utf-8',(err)=>{
     if(err){
-      console.error('error due appen file process');
+      console.error('error due append file process');
     }else{
       console.log('file updated')
     }
   })
 
 })
-return appendFile();
+//return appendFile();
 }
 appendFile();
 process.on('exit',(exit)=>{
