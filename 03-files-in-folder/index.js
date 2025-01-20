@@ -27,8 +27,9 @@ async function readDir(){
     if(err){console.error('error due reading dir');}
     return files;
   })
-   files.forEach(file => {
+   for(const file of files){
      const filePath = path.join(dirPath,file.name);
+     /*
      fs.stat(filePath,(err,stats)=>{
         if(err){console.error('error due reading info about files',err.message);return;}
        if(stats.isFile()){
@@ -37,6 +38,14 @@ async function readDir(){
          process.stdout.write(`${file.name}-${extName}-${(size/1024).toFixed(3)}kb \n`)
        }
      })
-   });
+       */
+      if(file.isFile()){
+        const stats = await fs.promises.stat(filePath,(err,stats)=>{return stats});
+        const extName = path.extname(file.name);
+        const size = stats.size;
+        process.stdout.write(`${file.name}-${extName}-${(size/1024).toFixed(3)}kb \n`)
+      
+    };
+   };//--
 }
 readDir();
