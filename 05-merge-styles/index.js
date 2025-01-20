@@ -7,17 +7,16 @@ async function mergeStyles(){
    let stylesArr = [];
    const files = await fs.promises.readdir(dirPathStyles,{withFileTypes:true});
    const styleFiles = files.filter(file=>file.isFile()&&path.extname(file.name)===".css");
-   for(const file of stylesFiles){
-    // let data = await fs.promises.readFile(path.join(dirPathStyles,file.name),'utf-8',(err,data));
+   for(const file of styleFiles){
+    
      const filePath = path.join(dirPathStyles,file.name);
-    // const readStream =  fs.createReadStream(filePath,'utf-8');
-    // readStream.pipe(stylesArr.push(data));
+   
      const data = await fs.promises.readFile(filePath,'utf-8');
      stylesArr.push(data);
-     console.log(stylesArr)
-
-
-   }
+   
+    }
+  // const writeStream = fs.createWriteStream(bundlePath,'utf-8');
+    await fs.promises.writeFile(bundlePath,stylesArr.join("\n"),'utf-8');
   }catch(err){console.error('error occurs due merging styles',err.message)};
 }
 mergeStyles();
