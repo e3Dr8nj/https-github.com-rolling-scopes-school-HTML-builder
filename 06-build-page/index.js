@@ -5,7 +5,7 @@ const copyDirectory = require('../04-copy-directory');
 
 const dirPathStyles = path.join(__dirname,'styles');
 const projectPath = path.join(__dirname, 'project-dist');
-const bundlePath = path.join(__dirname, 'project-dist', 'bundle.css');
+const bundlePath = path.join(__dirname, 'project-dist', 'style.css');
 const dirPathA = path.join(__dirname,'assets');
 const dirPathCopyA = path.join(projectPath,'assets');
 
