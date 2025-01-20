@@ -12,6 +12,7 @@ fs.writeFile(filePath,'','utf8',(err)=>{
  function appendFile(){  
    process.stdout.write('input data \n')
    process.stdin.on("data",(data)=>{
+    if(data.toString().trim()==="exit") return exit();
   fs.appendFile(filePath,data,'utf-8',(err)=>{
     if(err){
       console.error('error due append file process');
@@ -23,7 +24,9 @@ fs.writeFile(filePath,'','utf8',(err)=>{
 })
  }
 process.on('SIGINT',()=>{
-    process.stdout.write('Good bye');
-    process.exit(0);
+    exit();
 })
-
+function exit(){
+    process.stdout.write('Good bye\n');
+    process.exit(0);
+}
