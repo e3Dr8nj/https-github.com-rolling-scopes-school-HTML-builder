@@ -21,14 +21,9 @@ fs.writeFile(filePath,'','utf8',(err)=>{
   })
 
 })
-//return appendFile();
-}
-appendFile();
-process.on('exit',(exit)=>{
-    if(exit==0){
-      process.stdout.write('bye');
-      process.exit();
-    }else{
-      process.stderr.write(`${error}`)
-    }
+ }
+process.on('SIGINT',()=>{
+    process.stdout.write('Good bye');
+    process.exit(0);
 })
+
