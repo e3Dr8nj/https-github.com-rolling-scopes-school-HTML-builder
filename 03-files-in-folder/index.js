@@ -34,9 +34,9 @@ async function readDir(){
             return stats;
         });
        
-        const extName = path.extname(file.name);
+        const extName = path.extname(file.name).slice(1);
         const size = stats.size;
-        process.stdout.write(`${file.name}-${extName}-${(size/1024).toFixed(3)}kb \n`)
+        process.stdout.write(`${path.parse(file.name).name} - ${extName} - ${(size/1024).toFixed(3)}kb \n`)
       
      };
    };
