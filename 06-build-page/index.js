@@ -18,7 +18,7 @@ async function buildPage(){
     await fs.promises.writeFile(path.join(projectPath,"index.html"),htmlPage,'utf-8');
   
      await mergeStyles(dirPathStyles,bundlePath);
-     await copyDirectory(dirPathA,dirPathCopyA);
+     await copyDirectory(dirPathA,dirPathCopyA,true);
 
 }
 

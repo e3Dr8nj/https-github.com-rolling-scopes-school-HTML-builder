@@ -70,7 +70,7 @@ process.on('SIGINT',()=>{
 }
 
 function exit(){
-    process.stdout.write('Good bye\n');
+    process.stdout.write('\nGood bye\n');
     process.exit(0);
 }
 function appendFile(input){

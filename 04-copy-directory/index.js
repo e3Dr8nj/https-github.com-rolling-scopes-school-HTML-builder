@@ -4,9 +4,9 @@ const path = require('path');
 const dirPath = path.join(__dirname, 'files');
 const dirPathCopy = path.join(__dirname, 'files-copy');
 
-async function copyDirectory(sourceDir, targetDir) {
+async function copyDirectory(sourceDir, targetDir,rec) {
   try {
-  
+    console.log('copy directory')
     await fs.promises.mkdir(targetDir, { recursive: true });
 
     
@@ -31,5 +31,9 @@ async function copyDirectory(sourceDir, targetDir) {
 }
 
 
-copyDirectory(dirPath, dirPathCopy);
+
 module.exports = copyDirectory;
+
+if(require.main === module){
+  copyDirectory(dirPath, dirPathCopy,false);
+}else{}

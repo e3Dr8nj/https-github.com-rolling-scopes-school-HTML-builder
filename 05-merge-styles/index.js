@@ -5,7 +5,7 @@ const bundlePath = path.join(__dirname, 'project-dist', 'bundle.css');
 
 async function mergeStyles(dirPathStyles,bundlePath){
   try{
-   
+   console.log('run merge')
    let stylesArr = [];
    const files = await fs.promises.readdir(dirPathStyles,{withFileTypes:true});
    const styleFiles = files.filter(file=>file.isFile()&&path.extname(file.name)===".css");
@@ -21,5 +21,8 @@ async function mergeStyles(dirPathStyles,bundlePath){
     await fs.promises.writeFile(bundlePath,stylesArr.join("\n"),'utf-8');
   }catch(err){console.error('error occurs due merging styles',err.message)};
 }
-mergeStyles(dirPathStyles,bundlePath);
 module.exports = mergeStyles;
+
+if(require.main === module){
+  mergeStyles(dirPathStyles,bundlePath);
+}else{}
